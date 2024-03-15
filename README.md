@@ -30,8 +30,8 @@ To install and run this CRUD system locally, follow these steps:
 ### Edit Record
 ![Edit Record](public/images/edit.png)
 
-### Delete Record
-![Delete Record](public/images/trash.png)
+### Deleted Records
+![Deleted Records](public/images/trash.png)
 
 ## Usage
 
