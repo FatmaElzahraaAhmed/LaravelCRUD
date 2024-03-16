@@ -2,22 +2,23 @@
 
 namespace App\Http\Requests;
 
-
 use App\Models\Post;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StorePost extends FormRequest
+class UpdatePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        // $post = Post::find($this->id);
-        // return $post->user_id == Auth::id();
-        return true;
+        $postId = $this->route('id');
+        $post = Post::find($postId);
+
+        return $post && $post->user_id === Auth::id();
     }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -27,13 +28,12 @@ class StorePost extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=>['required','min:10'],
-            'body'=>['required'],
-            'enabled'=>['nullable', 'boolean'], 
-            'published_at'=>['required'],
+            'title' => ['required', 'min:10'],
+            'body' => ['required'],
+            'enabled' => ['nullable', 'boolean'],
+            'published_at' => ['required'],
         ];
     }
-
     public function attributes(): array
     {
         return [

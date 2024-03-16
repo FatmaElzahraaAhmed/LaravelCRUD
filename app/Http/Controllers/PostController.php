@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePost;
-
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -31,17 +31,20 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('posts.create', ['users' => User::all()]);
+        return view('posts.create');
     }
 
     public function store(StorePost $request)
     {
         $postData = $request->validated();
+        $postData['user_id'] = Auth()->id();
         $postData['enabled'] = $request->has('enabled');
 
         Post::create($postData);
+
         return redirect()->route('posts.index');
     }
+
 
     public function edit($id)
     {
@@ -51,13 +54,18 @@ class PostController extends Controller
         return view('posts.edit', compact('post', 'users'));
     }
 
-
-    public function update(StorePost $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
+        $userId = Auth::id();
+
         $postData = $request->validated();
+        $postData['user_id'] = $userId;
+
+
         $postData['enabled'] = $request->has('enabled');
 
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
+
         $post->update($postData);
 
         return redirect()->route('posts.index');

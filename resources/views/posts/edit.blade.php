@@ -26,14 +26,7 @@
                 <label for="body" class="form-label">Body</label>
                 <textarea type="text" class="form-control" name="body" id="body">{{ $post->body }}</textarea>
             </div>
-            <div class="mb-3">
-                <label for="user_id" class="form-label">User</label>
-                <select name="user_id" id="user_id" class="form-select">
-                    @foreach ($users as $user)
-                        <option value="{{ $user->id }}" {{ $user->id == $post->user_id ? 'selected' : '' }}>{{ $user->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+           
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="enabled" name="enabled" value="1" @if($post->enabled) checked @endif>
                 <label class="form-check-label" for="enabled">Enabled</label>

@@ -36,18 +36,7 @@
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
-                <div class="mb-3">
-                    <label for="user_id" class="form-label">User</label>
-                    {{-- <input type="text" class="form-control" name="user_id" id="user_id" value="{{ old('user_id') }}"> --}}
-                    <select name="user_id" id="user_id" class="form-select">
-                        @foreach ($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('user_id')
-                        <p class="text-danger">{{ $message }}</p>
-                    @enderror
-                </div>
+
                 <div class="mb-3">
                     <label for="body" class="form-label">Body</label>
                     <textarea type="text" class="form-control" name="body" id="body">{{ old('body') }}</textarea>
