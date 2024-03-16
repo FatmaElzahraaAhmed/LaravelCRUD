@@ -15,64 +15,67 @@
     @section('title', 'All Posts')
 
     @section('content')
-    <div class="posts container m-3">
-        <div class="row">
-            <div class="col-1">
-                <h5>ID</h5>
-            </div>
-            <div class="col-2">
-                <h5>Title</h5>
-            </div>
-            <div class="col-2">
-                <h5>Enabled</h5>
-            </div>
-            <div class="col-2">
-                <h5>Published at</h5>
-            </div>
-            <div class="col-2">
-                <h5>User</h5>
-            </div>
-            <div class="col-3">
-                <h5>Actions</h5>
-            </div>
-        </div>
-        <hr>
-        @foreach ($posts as $post)
+        <div class="posts container m-3">
             <div class="row">
                 <div class="col-1">
-                    <p>{{ $post->id }}</p>
+                    <h5>ID</h5>
                 </div>
                 <div class="col-2">
-                    <a href="{{ route('posts.show', $post->id) }}" class="post-link text-decoration-none ">
-                        <p>{{ $post->title }}</p>
-                    </a>
+                    <h5>Title</h5>
                 </div>
                 <div class="col-2">
-                    <p>{{ $post->enabled }}</p>
+                    <h5>Enabled</h5>
                 </div>
                 <div class="col-2">
-                    <p>{{ $post->published_at }}</p>
+                    <h5>Published at</h5>
                 </div>
                 <div class="col-2">
-                    <p>{{ $post->user->name }}</p>
+                    <h5>User</h5>
                 </div>
-                <div class="col-3 row justify-content-start">
-                    <div class="col-2 z-10">
-                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit</a>
-                    </div>
-
-                    <div class="col-2 ms-1">
-                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
+                <div class="col-3">
+                    <h5>Actions</h5>
                 </div>
             </div>
             <hr>
-        @endforeach
-    </div>
+            @foreach ($posts as $post)
+                <div class="row">
+                    <div class="col-1">
+                        <p>{{ $post->id }}</p>
+                    </div>
+                    <div class="col-2">
+                        <a href="{{ route('posts.show', $post->id) }}" class="post-link text-decoration-none ">
+                            <p>{{ $post->title }}</p>
+                        </a>
+                    </div>
+                    <div class="col-2">
+                        <p>{{ $post->enabled }}</p>
+                    </div>
+                    <div class="col-2">
+                        <p>{{ $post->published_at }}</p>
+                    </div>
+                    <div class="col-2">
+                        <p>{{ $post->user->name }}</p>
+                    </div>
+                    <div class="col-3 row justify-content-start">
+                        @if ($post->user_id === Auth::id())
+                            <div class="col-2 z-10">
+                                <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit</a>
+                            </div>
+
+                            <div class="col-2 ms-1">
+                                <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        @endif
+                    </div>
+
+                </div>
+                <hr>
+            @endforeach
+        </div>
     @endsection
 </body>
 
