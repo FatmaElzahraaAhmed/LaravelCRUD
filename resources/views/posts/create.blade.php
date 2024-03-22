@@ -18,7 +18,7 @@
 
         <div class="container">
             <h4 class="my-4">Add new post</h4>
-            <form class="w-25" action="{{ route('posts.store') }}" method="POST">
+            <form class="w-25" action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" value="{{ csrf_token() }}">
                 <div class="mb-3">
@@ -48,7 +48,17 @@
                     <input type="checkbox" class="form-check-input" id="enabled" name="enabled" value="1">
                     <label class="form-check-label" for="enabled">Enabled</label>
                 </div>
-
+                <div class="row mb-3">
+                    <label for="post-image" class="col-sm-2 col-form-label">Image</label>
+                    <div class="col-sm-10">
+                        <input @class(['form-control', 'is-invalid' => $errors->has('image')]) type="file" id="post-image" name="image">
+                        @error('image')
+                            <div id="titlefeedback" class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

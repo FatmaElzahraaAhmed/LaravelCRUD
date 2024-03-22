@@ -31,6 +31,7 @@ class StorePost extends FormRequest
             'body'=>['required'],
             'enabled'=>['nullable', 'boolean'], 
             'published_at'=>['required'],
+            'image'=>['nullable', 'image'],
         ];
     }
 
